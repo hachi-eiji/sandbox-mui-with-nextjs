@@ -2,7 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   compiler:{
-    emotion: true
+    emotion: {
+      sourceMap: false,
+    }
   }
 }
 
