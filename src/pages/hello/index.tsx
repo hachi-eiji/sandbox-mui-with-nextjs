@@ -1,4 +1,5 @@
 import styles from './Hello.module.scss'
+import {Box, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 
 export default function HelloIndex() {
   const numbers: number[] = [];
@@ -7,8 +8,12 @@ export default function HelloIndex() {
   }
 
   return (
-    <ul>
-      {numbers.map(i => <li key={i} className={styles.listItem}>Number {i}</li>)}
-    </ul>
+    <Box>
+      <List>
+        {numbers.map(i => {
+          return <ListItem key={i} className={styles.listItem}>Number {i}</ListItem>
+        })}
+      </List>
+    </Box>
   )
 }

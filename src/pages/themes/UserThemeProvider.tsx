@@ -1,5 +1,5 @@
-import {createTheme, ThemeProvider} from "@mui/material";
 import {ReactNode} from "react";
+import {createTheme, ThemeProvider} from "@mui/material";
 
 const theme = createTheme({
   components: {
@@ -7,7 +7,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&:nth-child(odd)': {
-            backgroundColor: 'red'
+            backgroundColor: 'green'
           }
         }
       }
@@ -15,10 +15,10 @@ const theme = createTheme({
   }
 })
 
-export interface AppThemeProviderProps {
+export interface UserThemeProviderProps {
   children?: ReactNode
 }
 
-export function AppThemeProvider(props: AppThemeProviderProps) {
+export default function UserThemeProvider(props: UserThemeProviderProps) {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
 }
