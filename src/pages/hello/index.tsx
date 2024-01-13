@@ -1,19 +1,9 @@
 import {List, ListItem, useMediaQuery} from "@mui/material";
-import {css, SerializedStyles, useTheme} from "@emotion/react";
+import {css, useTheme} from "@emotion/react";
 import {useMemo} from "react";
+import {CssBreakPoints} from "@/types/CssStyle";
 
-type CssItem = {
-  list?: SerializedStyles,
-  item?: SerializedStyles,
-}
-
-type CssDefinedStyle = {
-  base?: CssItem,
-  pc?: CssItem,
-  sp?: CssItem,
-};
-
-const styles: CssDefinedStyle = {
+const styles: CssBreakPoints = {
   base: {
     list: css({padding: '10px'}),
   },
@@ -49,8 +39,8 @@ export default function HelloIndex() {
 
   const classes = useMemo(() => {
     return {
-      list: [styles.base?.list, styles[device]?.list].filter(v => !!v),
-      item: [styles.base?.item, styles[device]?.item].filter(v => !!v)
+      list: [styles.base?.list, styles[device]?.list].filter(v => v),
+      item: [styles.base?.item, styles[device]?.item].filter(v => v)
     }
   }, [isSp])
 
