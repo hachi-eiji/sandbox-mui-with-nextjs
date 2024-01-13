@@ -1,5 +1,10 @@
-import {createTheme, ThemeProvider} from "@mui/material";
 import {ReactNode} from "react";
+import {createTheme, Theme as MUITheme, ThemeProvider} from "@mui/material";
+
+declare module "@emotion/react" {
+  export interface Theme extends MUITheme {
+  }
+}
 
 const theme = createTheme({
   components: {
