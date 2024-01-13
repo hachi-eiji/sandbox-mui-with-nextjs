@@ -1,18 +1,41 @@
 import {List, ListItem, useMediaQuery} from "@mui/material";
-import {css, useTheme} from "@emotion/react";
+import {css, SerializedStyles, useTheme} from "@emotion/react";
 import {useMemo} from "react";
-import style from './Hello.module.scss'
 
-const styles = {
-  pcStyle: css({
-    marginTop: '10px'
-  }),
-
-  spStyle: css({
-    marginTop: '20px',
-    fontWeight: 'bold'
-  })
+type CssItem = {
+  list?: SerializedStyles,
+  item?: SerializedStyles,
 }
+
+type CssDefinedStyle = {
+  base?: CssItem,
+  pc?: CssItem,
+  sp?: CssItem,
+};
+
+const styles: CssDefinedStyle = {
+  base: {
+    list: css({padding: '10px'}),
+  },
+  pc: {
+    list: css({
+      padding: '20px',
+      border: '1px solid'
+    }),
+    item: css({
+      marginTop: '10px'
+    })
+  },
+  sp: {
+    list: css({
+      border: '1px solid'
+    }),
+    item: css({
+      marginTop: '20px',
+      fontWeight: 'bold'
+    })
+  }
+};
 
 export default function HelloIndex() {
   const numbers: number[] = [];
@@ -23,14 +46,19 @@ export default function HelloIndex() {
   const theme = useTheme();
   const isSp = useMediaQuery(theme.breakpoints.down('md'));
   const classes = useMemo(() => {
-    return isSp ? [styles.spStyle] : [styles.pcStyle]
+    const device = isSp ? 'sp' : 'pc';
+
+    return {
+      list: [styles.base?.list, styles[device]?.list].filter(v => !!v),
+      item: [styles.base?.item, styles[device]?.item].filter(v => !!v)
+    }
   }, [isSp])
 
   return (
     <>
-      <List>
+      <List css={classes.list}>
         {numbers.map(i => {
-          return <ListItem key={i} css={classes} className={style.listItem}>Number {i}</ListItem>
+          return <ListItem key={i} css={classes.item}>Number {i}</ListItem>
         })}
       </List>
     </>
