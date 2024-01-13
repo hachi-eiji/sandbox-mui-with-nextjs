@@ -19,6 +19,6 @@ export interface AppThemeProviderProps {
   children?: ReactNode
 }
 
-export function AppThemeProvider(props: AppThemeProviderProps) {
+export default function AppThemeProvider(props: AppThemeProviderProps) {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
 }
