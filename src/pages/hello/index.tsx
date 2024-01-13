@@ -1,8 +1,14 @@
+import styles from './Hello.module.scss'
+
 export default function HelloIndex() {
+  const numbers: number[] = [];
+  for (let i = 0; i < 10; i++) {
+    numbers.push(i)
+  }
+
   return (
-    <>
-      <div>hogehogeh</div>
-      <div>hogehogeh</div>
-    </>
+    <ul>
+      {numbers.map(i => <li key={i} className={styles.listItem}>Number {i}</li>)}
+    </ul>
   )
 }
