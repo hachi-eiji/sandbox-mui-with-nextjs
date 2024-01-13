@@ -45,9 +45,9 @@ export default function HelloIndex() {
 
   const theme = useTheme();
   const isSp = useMediaQuery(theme.breakpoints.down('md'));
-  const classes = useMemo(() => {
-    const device = isSp ? 'sp' : 'pc';
+  const device = isSp ? 'sp' : 'pc';
 
+  const classes = useMemo(() => {
     return {
       list: [styles.base?.list, styles[device]?.list].filter(v => !!v),
       item: [styles.base?.item, styles[device]?.item].filter(v => !!v)
