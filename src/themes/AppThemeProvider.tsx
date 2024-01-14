@@ -1,9 +1,8 @@
-import {ReactNode} from "react";
-import {createTheme, Theme as MUITheme, ThemeProvider} from "@mui/material";
+import { ReactNode } from "react";
+import { createTheme, Theme as MUITheme, ThemeProvider } from "@mui/material";
 
 declare module "@emotion/react" {
-  export interface Theme extends MUITheme {
-  }
+  export interface Theme extends MUITheme {}
 }
 
 const theme = createTheme({
@@ -11,19 +10,19 @@ const theme = createTheme({
     MuiListItem: {
       styleOverrides: {
         root: {
-          '&:nth-child(odd)': {
-            backgroundColor: 'red'
-          }
-        }
-      }
-    }
-  }
-})
+          "&:nth-child(odd)": {
+            backgroundColor: "red",
+          },
+        },
+      },
+    },
+  },
+});
 
 export interface AppThemeProviderProps {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export default function AppThemeProvider(props: AppThemeProviderProps) {
-  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }

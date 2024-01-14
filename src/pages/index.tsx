@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
@@ -11,8 +11,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-          <Link href="/hello">移動する</Link>
+        <Link href="/hello">移動する</Link>
       </main>
     </>
-  )
+  );
 }
