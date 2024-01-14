@@ -1,9 +1,9 @@
 import {List, ListItem, useMediaQuery} from "@mui/material";
 import {css, useTheme} from "@emotion/react";
 import {useMemo} from "react";
-import {compact_from, CssBreakPoints} from "@/types/CssStyle";
+import {compact_from, CssStyles} from "@/types/CssStyle";
 
-const styles: CssBreakPoints = {
+const styles: CssStyles = {
   base: {
     list: css({padding: '10px'}),
   },

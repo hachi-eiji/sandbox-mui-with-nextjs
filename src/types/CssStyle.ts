@@ -4,7 +4,7 @@ export type CssItems = {
   [key: string]: SerializedStyles
 }
 
-export type CssBreakPoints = {
+export type CssStyles = {
   base?: CssItems
   pc?: CssItems
   sp?: CssItems
