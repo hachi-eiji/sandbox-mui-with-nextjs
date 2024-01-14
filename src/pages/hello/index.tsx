@@ -1,7 +1,7 @@
 import {List, ListItem, useMediaQuery} from "@mui/material";
 import {css, useTheme} from "@emotion/react";
 import {useMemo} from "react";
-import {CssBreakPoints} from "@/types/CssStyle";
+import {compact_from, CssBreakPoints} from "@/types/CssStyle";
 
 const styles: CssBreakPoints = {
   base: {
@@ -39,8 +39,8 @@ export default function HelloIndex() {
 
   const classes = useMemo(() => {
     return {
-      list: [styles.base?.list, styles[device]?.list].filter(v => v),
-      item: [styles.base?.item, styles[device]?.item].filter(v => v)
+      list: compact_from(styles.base?.list, styles[device]?.list),
+      item: compact_from(styles.base?.item, styles[device]?.item),
     }
   }, [isSp])
 
