@@ -1,4 +1,4 @@
-import { List, ListItem, useMediaQuery } from "@mui/material";
+import { List, ListItem, Theme, useMediaQuery } from "@mui/material";
 import { css, useTheme } from "@emotion/react";
 import { useMemo } from "react";
 import { compact_from, CssStyles } from "@/types/CssStyle";
@@ -8,10 +8,11 @@ const styles: CssStyles = {
     list: css({ padding: "10px" }),
   },
   pc: {
-    list: css({
-      padding: "20px",
-      border: "1px solid",
-    }),
+    list: (theme: Theme) =>
+      css({
+        padding: "20px",
+        border: `1px solid ${theme.palette.primary.main}`,
+      }),
     item: css({
       marginTop: "10px",
     }),

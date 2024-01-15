@@ -1,7 +1,9 @@
 import { SerializedStyles } from "@emotion/react";
+import { Theme } from "@mui/material";
 
+type CssClass = SerializedStyles | ((theme: Theme) => SerializedStyles);
 export type CssItems = {
-  [key: string]: SerializedStyles;
+  [key: string]: CssClass;
 };
 
 export type CssStyles = {
@@ -10,8 +12,8 @@ export type CssStyles = {
   sp?: CssItems;
 };
 
-export function compact_from(...items: (SerializedStyles | undefined)[]): SerializedStyles[] {
-  const result: SerializedStyles[] = [];
+export function compact_from(...items: (CssClass | undefined)[]): CssClass[] {
+  const result: CssClass[] = [];
   items.forEach((v) => {
     if (v) {
       result.push(v);
