@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (
@@ -11,7 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Link href="/hello">移動する</Link>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Link href="/hello">移動する</Link>
+          <Link href="/autocomplete">auto completeに移動する</Link>
+        </Box>
       </main>
     </>
   );
