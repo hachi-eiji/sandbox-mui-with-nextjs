@@ -1,14 +1,32 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle, Divider,
+  Paper,
+  TextField,
+} from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function AutoCompletePage() {
+  const userRouter = useRouter();
   const values: { id: number; label: string }[] = [];
   for (let i = 0; i < 20; i++) {
     values.push({ id: i, label: `option label ${i}` });
   }
 
   const [selectLabel, setSelectLabel] = useState<string>();
+  const [showDialog, setShowDialog] = useState<boolean>(false);
+  const preventEventHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+  };
 
   return (
     <Box sx={{ mt: 2, ml: 2, width: "300px" }}>
@@ -22,6 +40,10 @@ export default function AutoCompletePage() {
         getOptionKey={(option) => option.id}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         renderInput={(params) => <TextField {...params} placeholder="select opion" />}
+        onClose={(event, reason) => {
+          // なぜかonClose(blur)が2回走る...なんで？
+          console.log(event, reason);
+        }}
         onChange={(event, value, reason) => {
           switch (reason) {
             case "selectOption":
@@ -34,7 +56,50 @@ export default function AutoCompletePage() {
             //none
           }
         }}
+        PaperComponent={({ children, ...others }) => (
+          <Paper {...others}>
+            <Box sx={{ maxHeight: "40vh" }}>{children}</Box>
+            <Divider/>
+            <Box sx={{ p: 2, zIndex: 1300 }}>
+              {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
+              <Button
+                onMouseDown={preventEventHandler}
+                onClick={() => {
+                  setShowDialog(true);
+                }}
+              >
+                ダイアログを開く
+              </Button>
+              <Link href="/hello" onMouseDown={preventEventHandler}>
+                Hello
+              </Link>
+            </Box>
+          </Paper>
+        )}
       />
+      <Dialog open={showDialog}>
+        <DialogTitle>タイトル</DialogTitle>
+        <DialogContent>
+          <DialogContentText>移動しますか？</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setShowDialog(false);
+            }}
+          >
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              setShowDialog(false);
+              userRouter.push("/hello");
+            }}
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
