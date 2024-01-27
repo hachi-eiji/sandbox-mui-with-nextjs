@@ -1,6 +1,5 @@
 import { List, ListItem, Theme, useMediaQuery } from "@mui/material";
 import { css, useTheme } from "@emotion/react";
-import { useMemo } from "react";
 import { compact_from, CssStyles } from "@/types/CssStyle";
 
 const styles: CssStyles = {
@@ -38,12 +37,11 @@ export default function HelloIndex() {
   const isSp = useMediaQuery(theme.breakpoints.down("md"));
   const device = isSp ? "sp" : "pc";
 
-  const classes = useMemo(() => {
-    return {
-      list: compact_from(styles.base?.list, styles[device]?.list),
-      item: compact_from(styles.base?.item, styles[device]?.item),
-    };
-  }, [isSp]);
+  const classes = {
+    list: compact_from(styles.base?.list, styles[device]?.list),
+    item: compact_from(styles.base?.item, styles[device]?.item),
+  };
+
 
   return (
     <>
