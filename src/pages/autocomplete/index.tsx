@@ -6,7 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle, Divider,
+  DialogTitle,
+  Divider,
   Paper,
   TextField,
 } from "@mui/material";
@@ -60,8 +61,8 @@ export default function AutoCompletePage() {
           <Paper {...others}>
             {/*40vh は MUIのコンポーネントのulのサイズと同じ高さ*/}
             <Box sx={{ maxHeight: "40vh" }}>{children}</Box>
-            <Divider/>
-            <Box sx={{ p: 2, zIndex: 1300 }}>
+            <Divider />
+            <Box sx={{ p: 2 }}>
               {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
               <Button
                 onMouseDown={preventEventHandler}
