@@ -18,6 +18,8 @@ export default function AutoCompletePage() {
       <Autocomplete
         size="small"
         options={values}
+        getOptionLabel={(option) => option.label}
+        getOptionKey={(option) => option.id}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         renderInput={(params) => <TextField {...params} placeholder="select opion" />}
         onChange={(event, value, reason) => {
