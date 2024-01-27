@@ -58,6 +58,7 @@ export default function AutoCompletePage() {
         }}
         PaperComponent={({ children, ...others }) => (
           <Paper {...others}>
+            {/*40vh は MUIのコンポーネントのulのサイズと同じ高さ*/}
             <Box sx={{ maxHeight: "40vh" }}>{children}</Box>
             <Divider/>
             <Box sx={{ p: 2, zIndex: 1300 }}>
