@@ -7,21 +7,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Divider,
-  Paper,
-  PaperProps,
 } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { PaperWithFooter, defaultNoOptionsText, defaultRenderInput } from "@/components/AutocompleteHelper";
+import { defaultNoOptionsText, defaultRenderInput, PaperWithFooter } from "@/components/AutocompleteHelper";
 
 type FooterComponentType = {
   openDialogEventHandler: () => void;
 };
 
-function FooterComponent(props: FooterComponentType) {
+function FooterContent(props: FooterComponentType) {
   const { openDialogEventHandler } = props;
   const preventEventHandler = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -29,15 +26,13 @@ function FooterComponent(props: FooterComponentType) {
 
   return (
     <>
-      <Box sx={{ p: 1 }}>
-        {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
-        <Button onMouseDown={preventEventHandler} onClick={openDialogEventHandler}>
-          ダイアログを開く
-        </Button>
-        <Link href="/hello" onMouseDown={preventEventHandler}>
-          Hello
-        </Link>
-      </Box>
+      {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
+      <Button onMouseDown={preventEventHandler} onClick={openDialogEventHandler}>
+        ダイアログを開く
+      </Button>
+      <Link href="/hello" onMouseDown={preventEventHandler}>
+        Hello
+      </Link>
     </>
   );
 }
@@ -68,7 +63,7 @@ export default function AutoCompletePage() {
           // なぜかonClose(blur)が2回走る...なんで？
           console.log(event, reason);
         }}
-        onChange={(event, value, reason) => {
+        onChange={(_, value, reason) => {
           switch (reason) {
             case "selectOption":
               setSelectLabel(value?.label);
@@ -85,7 +80,7 @@ export default function AutoCompletePage() {
             <PaperWithFooter
               {...props}
               footer={
-                <FooterComponent
+                <FooterContent
                   openDialogEventHandler={() => {
                     setShowDialog(true);
                   }}
