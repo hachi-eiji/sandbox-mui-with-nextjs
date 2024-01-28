@@ -9,12 +9,38 @@ import {
   DialogTitle,
   Divider,
   Paper,
-  TextField,
+  PaperProps,
 } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { PaperWithFooter, defaultNoOptionsText, defaultRenderInput } from "@/components/AutocompleteHelper";
+
+type FooterComponentType = {
+  openDialogEventHandler: () => void;
+};
+
+function FooterComponent(props: FooterComponentType) {
+  const { openDialogEventHandler } = props;
+  const preventEventHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+  };
+
+  return (
+    <>
+      <Box sx={{ p: 1 }}>
+        {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
+        <Button onMouseDown={preventEventHandler} onClick={openDialogEventHandler}>
+          ダイアログを開く
+        </Button>
+        <Link href="/hello" onMouseDown={preventEventHandler}>
+          Hello
+        </Link>
+      </Box>
+    </>
+  );
+}
 
 export default function AutoCompletePage() {
   const userRouter = useRouter();
@@ -25,9 +51,6 @@ export default function AutoCompletePage() {
 
   const [selectLabel, setSelectLabel] = useState<string>();
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const preventEventHandler = (event: React.MouseEvent) => {
-    event.preventDefault();
-  };
 
   return (
     <Box sx={{ mt: 2, ml: 2, width: "300px" }}>
@@ -35,12 +58,12 @@ export default function AutoCompletePage() {
         selected label is <span style={{ fontWeight: "bold" }}>{selectLabel ?? "none"}</span>
       </Box>
       <Autocomplete
-        size="small"
         options={values}
+        renderInput={defaultRenderInput}
+        noOptionsText={defaultNoOptionsText}
         getOptionLabel={(option) => option.label}
         getOptionKey={(option) => option.id}
         isOptionEqualToValue={(option, value) => option.id === value.id}
-        renderInput={(params) => <TextField {...params} placeholder="select opion" />}
         onClose={(event, reason) => {
           // なぜかonClose(blur)が2回走る...なんで？
           console.log(event, reason);
@@ -57,27 +80,20 @@ export default function AutoCompletePage() {
             //none
           }
         }}
-        PaperComponent={({ children, ...others }) => (
-          <Paper {...others}>
-            {/*40vh は MUIのコンポーネントのulのサイズと同じ高さ*/}
-            <Box sx={{ maxHeight: "40vh" }}>{children}</Box>
-            <Divider />
-            <Box sx={{ p: 2 }}>
-              {/* リンクをクリックするとマウスダウンが走り、Optionリストが閉じるのでイベントを停止する */}
-              <Button
-                onMouseDown={preventEventHandler}
-                onClick={() => {
-                  setShowDialog(true);
-                }}
-              >
-                ダイアログを開く
-              </Button>
-              <Link href="/hello" onMouseDown={preventEventHandler}>
-                Hello
-              </Link>
-            </Box>
-          </Paper>
-        )}
+        PaperComponent={(props) => {
+          return (
+            <PaperWithFooter
+              {...props}
+              footer={
+                <FooterComponent
+                  openDialogEventHandler={() => {
+                    setShowDialog(true);
+                  }}
+                />
+              }
+            />
+          );
+        }}
       />
       <Dialog open={showDialog}>
         <DialogTitle>タイトル</DialogTitle>
