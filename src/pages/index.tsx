@@ -15,6 +15,7 @@ export default function Home() {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Link href="/hello">移動する</Link>
           <Link href="/autocomplete">auto completeに移動する</Link>
+          <Link href="/datefield">date fieldに移動する</Link>
         </Box>
       </main>
     </>
